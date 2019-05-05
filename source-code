@@ -1,0 +1,80 @@
+# Akrit Shrikant - May 2019
+
+import math
+import operator
+import math
+
+# Tuple - values and colors can be modified
+data = [(1,5,"blue"),(2, 3, "red"), (1, 7, "blue"), (3, 6, "blue"), (4, 2, "blue"), (5, 9, "red"), (6, 4, "red"), (7,1, "red")]
+
+
+# ask user to input x and y coordinates
+
+xCoordinate  = input("What is your x-coordinate?")
+yCoordinate  = input("What is your y-coordinate?")
+
+#ask for value of K
+
+k = input("What is your K-value?")
+
+
+
+myDictionary = {}
+for x in data:
+    x1 = x[0]
+    y1 = x[1]
+    
+    # Find the distance between the given points to all the points in the dataset
+    distance = math.sqrt((x1-int(xCoordinate))*(x1-int(xCoordinate)) + (y1-int(yCoordinate))*(y1-int(yCoordinate)))
+
+    #store the distances in correspondance with the tuple, e.x (1,5,"blue")
+    myDictionary[x] = distance
+
+
+# sort the dictionary by least to greatest distance
+
+newDictionary = sorted(myDictionary.items(), key=operator.itemgetter(1))
+print(newDictionary)
+
+
+AList = []
+colors = []
+
+#store all the distances in a separate list
+
+for i in newDictionary:
+    AList.append(i[1])
+
+
+print(AList)
+
+
+#find the first few distances, based on the value of k, loop through those
+
+for z in range(int(k)):
+    print(newDictionary[z][1])
+
+#find the color of the 3 or 5 closest point, the value of k is what determines if it is 3 or 5
+
+for n in range(int(k)):
+    colors.append(newDictionary[n][0][2])
+
+blueCount = 0
+redCount = 0
+
+#find the majority color in the given 3 or 5 points
+
+for x in range(0, len(colors)):
+    if(colors[x] == 'blue'):
+        blueCount = blueCount + 1
+    if(colors[x] == 'red'):
+        redCount = redCount + 1
+
+print(colors)
+
+#compare the # of points that are either red or blue (colors can be changed)
+
+if(redCount > blueCount):
+    print("Your point is red")
+if(redCount < blueCount):
+    print("Your point should be blue")
